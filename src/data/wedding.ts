@@ -43,6 +43,6 @@ export const weddingData = {
     title: '예인 & 준희의 결혼식에 초대합니다.',
     description: '2026년 5월 9일 토요일 낮 12시 제이니힐',
     imageUrl: '', // TODO: 이미지 URL 추가
-    webUrl: 'https://anne-jun-wedding.vercel.app',
+    webUrl: 'https://anne-jun-wedding.netlify.app',
   },
 };
