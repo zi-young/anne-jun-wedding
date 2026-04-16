@@ -32,7 +32,8 @@ export default function KakaoShare() {
           window.Kakao.init(KAKAO_KEY);
         }
         setReady(window.Kakao.isInitialized());
-      } catch {
+      } catch (e) {
+        console.error('[KakaoShare] init 실패:', e);
         setReady(false);
       }
     };
@@ -51,32 +52,37 @@ export default function KakaoShare() {
   }, []);
 
   const handleShare = () => {
-    if (!ready || !window.Kakao?.isInitialized()) {
-      alert('카카오 SDK가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.');
+    if (!window.Kakao?.isInitialized()) {
+      alert(`카카오 SDK가 초기화되지 않았습니다.\nready: ${ready}\nKakao 존재: ${!!window.Kakao}`);
       return;
     }
 
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: kakaoShare.title,
-        description: kakaoShare.description,
-        imageUrl: kakaoShare.imageUrl,
-        link: {
-          mobileWebUrl: kakaoShare.webUrl,
-          webUrl: kakaoShare.webUrl,
-        },
-      },
-      buttons: [
-        {
-          title: '청첩장 보기',
+    try {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: kakaoShare.title,
+          description: kakaoShare.description,
+          imageUrl: kakaoShare.imageUrl,
           link: {
             mobileWebUrl: kakaoShare.webUrl,
             webUrl: kakaoShare.webUrl,
           },
         },
-      ],
-    });
+        buttons: [
+          {
+            title: '청첩장 보기',
+            link: {
+              mobileWebUrl: kakaoShare.webUrl,
+              webUrl: kakaoShare.webUrl,
+            },
+          },
+        ],
+      });
+    } catch (e) {
+      console.error('[KakaoShare] sendDefault 실패:', e);
+      alert(`공유 실패: ${e instanceof Error ? e.message : String(e)}`);
+    }
   };
 
   return (
