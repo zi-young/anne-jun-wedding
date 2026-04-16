@@ -25,6 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/%EB%A9%94%EC%9D%B8%EC%82%AC%EC%A7%84/KakaoTalk_20260415_075850582_02.jpg"
+        />
+      </head>
       <body suppressHydrationWarning>{children}</body>
     </html>
   );
