@@ -52,6 +52,11 @@ export default function MapLinks() {
           T맵
         </button>
       </div>
+      <div className="shuttle-info">
+        <p className="shuttle-title">셔틀버스 운행</p>
+        <p className="shuttle-row">청계산입구역 2번 출구 (제이니힐 배너 앞)</p>
+        <p className="shuttle-row">10:30부터 10&ndash;15분 간격 운행</p>
+      </div>
     </section>
   );
 }
