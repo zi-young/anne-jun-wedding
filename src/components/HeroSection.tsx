@@ -1,3 +1,5 @@
+'use client';
+
 import { weddingData } from '@/data/wedding';
 
 export default function HeroSection() {
