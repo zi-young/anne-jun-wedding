@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback, useState, useRef } from 'react';
+import { useEffect, useCallback, useState, useRef, useMemo } from 'react';
 import Image from 'next/image';
 
 const GALLERY_IMAGES = [
@@ -98,6 +98,47 @@ export default function Gallery() {
     }
   };
 
+  // 라이트박스 이미지 프리로드 (인접 이미지)
+  const preloadedSet = useRef(new Set<string>());
+  useMemo(() => {
+    if (lightboxIndex === null) return;
+    const toPreload = [lightboxIndex - 1, lightboxIndex, lightboxIndex + 1];
+    toPreload.forEach((i) => {
+      if (i >= 0 && i < GALLERY_IMAGES.length) {
+        const src = GALLERY_IMAGES[i];
+        if (!preloadedSet.current.has(src)) {
+          preloadedSet.current.add(src);
+          const img = new window.Image();
+          img.src = src;
+        }
+      }
+    });
+  }, [lightboxIndex]);
+
+  // 이미지 로드 상태로 crossfade
+  const [loadedIndex, setLoadedIndex] = useState<number | null>(null);
+  const prevIndexRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (lightboxIndex === null) {
+      setLoadedIndex(null);
+      prevIndexRef.current = null;
+      return;
+    }
+    // 새 이미지 프리로드 후 전환
+    const img = new window.Image();
+    img.src = GALLERY_IMAGES[lightboxIndex];
+    if (img.complete) {
+      prevIndexRef.current = lightboxIndex;
+      setLoadedIndex(lightboxIndex);
+    } else {
+      img.onload = () => {
+        prevIndexRef.current = lightboxIndex;
+        setLoadedIndex(lightboxIndex);
+      };
+    }
+  }, [lightboxIndex]);
+
   return (
     <>
       <section className="gallery-section section">
@@ -160,13 +201,24 @@ export default function Gallery() {
             className="lightbox-content"
             onContextMenu={(e) => e.preventDefault()}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              key={lightboxIndex}
-              src={GALLERY_IMAGES[lightboxIndex]}
-              alt={`갤러리 ${lightboxIndex + 1}`}
-              className="lightbox-img"
-            />
+            <div className="lightbox-img-wrapper">
+              {/* 이전 이미지 (로딩 중 보여줌) */}
+              {prevIndexRef.current !== null && loadedIndex !== lightboxIndex && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={GALLERY_IMAGES[prevIndexRef.current]}
+                  alt=""
+                  className="lightbox-img lightbox-img-prev"
+                />
+              )}
+              {/* 현재 이미지 */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={GALLERY_IMAGES[lightboxIndex]}
+                alt={`갤러리 ${lightboxIndex + 1}`}
+                className={`lightbox-img ${loadedIndex === lightboxIndex ? 'lightbox-img-loaded' : 'lightbox-img-loading'}`}
+              />
+            </div>
             <div className="lightbox-counter">
               {lightboxIndex + 1} / {GALLERY_IMAGES.length}
             </div>
