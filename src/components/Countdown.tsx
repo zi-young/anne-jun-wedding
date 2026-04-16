@@ -56,7 +56,14 @@ export default function Countdown() {
     <section className="countdown-section">
       {/* 배경 사진 + 카운트다운 오버레이 */}
       <div className="countdown-bg">
-        <span className="countdown-bg-placeholder">Wedding Photo</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/IMG_2159.JPG"
+          alt=""
+          className="countdown-bg-img"
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
+        />
         <div className="countdown-overlay">
           <div className="countdown-numbers">
             <span className="countdown-value">{mounted ? pad(timeLeft.days) : '--'}</span>
