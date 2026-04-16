@@ -5,11 +5,13 @@ import Gallery from '@/components/Gallery';
 import AccountAccordion from '@/components/AccountAccordion';
 import MapLinks from '@/components/MapLinks';
 import KakaoShare from '@/components/KakaoShare';
+import ScrollObserver from '@/components/ScrollObserver';
 import { ToastProvider } from '@/components/Toast';
 
 export default function Home() {
   return (
     <ToastProvider>
+      <ScrollObserver />
       <div className="wedding-container">
         <HeroSection />
         <InvitationText />

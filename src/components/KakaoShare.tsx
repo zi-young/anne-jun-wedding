@@ -20,7 +20,7 @@ export default function KakaoShare() {
   const kakaoLoaded = useRef(false);
 
   const initKakao = () => {
-    const key = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+    const key = process.env.NEXT_PUBLIC_KAKAO_JS_KEY || '7b40232aa8c437b0405a6ba1469c5ba4';
     if (window.Kakao && key && !window.Kakao.isInitialized()) {
       window.Kakao.init(key);
     }

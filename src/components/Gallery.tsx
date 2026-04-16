@@ -23,8 +23,12 @@ const GALLERY_IMAGES = [
 
 export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  const INITIAL_COUNT = 9;
+  const visibleImages = showAll ? GALLERY_IMAGES : GALLERY_IMAGES.slice(0, INITIAL_COUNT);
 
   // 이미지 보호: 우클릭 방지
   const handleContextMenu = useCallback((e: MouseEvent) => {
@@ -99,7 +103,7 @@ export default function Gallery() {
         <p className="section-title">GALLERY</p>
         <div className="section-line" />
         <div className="gallery-grid">
-          {GALLERY_IMAGES.map((src, idx) => (
+          {visibleImages.map((src, idx) => (
             <div
               key={src}
               className="gallery-item"
@@ -112,12 +116,15 @@ export default function Gallery() {
                 src={src}
                 alt={`갤러리 ${idx + 1}`}
                 className="gallery-img"
-                draggable={false}
-                onContextMenu={(e) => e.preventDefault()}
               />
             </div>
           ))}
         </div>
+        {!showAll && GALLERY_IMAGES.length > INITIAL_COUNT && (
+          <button className="gallery-more-btn" onClick={() => setShowAll(true)}>
+            더보기 ({GALLERY_IMAGES.length - INITIAL_COUNT}장 더)
+          </button>
+        )}
       </section>
 
       {lightboxIndex !== null && (
@@ -149,11 +156,10 @@ export default function Gallery() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              key={lightboxIndex}
               src={GALLERY_IMAGES[lightboxIndex]}
               alt={`갤러리 ${lightboxIndex + 1}`}
               className="lightbox-img"
-              draggable={false}
-              onContextMenu={(e) => e.preventDefault()}
             />
             <div className="lightbox-counter">
               {lightboxIndex + 1} / {GALLERY_IMAGES.length}
