@@ -959,29 +959,57 @@ button {
   color: var(--color-white);
 }
 
-.shuttle-info {
+.traffic-info {
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.shuttle-title {
+.traffic-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+}
+
+.traffic-icon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--color-gray-dark);
+  flex-shrink: 0;
+}
+
+.traffic-body {
+  flex: 1;
+}
+
+.traffic-title {
   font-family: var(--font-kr);
   font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.35em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   color: #888;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 
-.shuttle-row {
+.traffic-row {
   font-size: 12.5px;
   font-weight: 300;
   color: var(--color-gray-dark);
   letter-spacing: 0.04em;
-  line-height: 2.2;
+  line-height: 2;
 }
 
 /* ========================
