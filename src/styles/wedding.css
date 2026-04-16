@@ -583,6 +583,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   /* 이미지 보호 */
   user-select: none;
   -webkit-user-select: none;

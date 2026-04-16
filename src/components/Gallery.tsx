@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useCallback, useState, useRef } from 'react';
+import Image from 'next/image';
 
 const GALLERY_IMAGES = [
   '/images/IMG_1072-1.jpg',
@@ -111,12 +112,13 @@ export default function Gallery() {
               onContextMenu={(e) => e.preventDefault()}
               draggable={false}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={src}
                 alt={`갤러리 ${idx + 1}`}
                 className="gallery-img"
-                loading="lazy"
+                fill
+                sizes="(max-width: 480px) 33vw, 160px"
+                style={{ objectFit: 'cover' }}
               />
             </div>
           ))}

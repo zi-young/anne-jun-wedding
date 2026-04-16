@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { weddingData } from '@/data/wedding';
 
 export default function Countdown() {
@@ -56,11 +57,13 @@ export default function Countdown() {
     <section className="countdown-section">
       {/* 배경 사진 + 카운트다운 오버레이 */}
       <div className="countdown-bg">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/images/IMG_2159.JPG"
           alt=""
           className="countdown-bg-img"
+          fill
+          sizes="(max-width: 480px) 100vw, 480px"
+          style={{ objectFit: 'cover' }}
         />
         <div className="countdown-overlay">
           <div className="countdown-numbers">

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { weddingData } from '@/data/wedding';
 
 export default function HeroSection() {
@@ -10,12 +11,14 @@ export default function HeroSection() {
       {/* 메인 사진 */}
       <div className="hero-top">
         <div className="hero-photo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/images/메인사진/KakaoTalk_20260415_075850582_02.jpg"
             alt="Anne & Jun"
             className="hero-photo-img"
-            fetchPriority="high"
+            fill
+            sizes="(max-width: 480px) 100vw, 480px"
+            style={{ objectFit: 'cover' }}
+            priority
           />
         </div>
       </div>
@@ -24,11 +27,13 @@ export default function HeroSection() {
       <div className="hero-info">
         {/* 배경 사진 */}
         <div className="hero-second-photo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/images/메인사진/KakaoTalk_20260415_075850582_07.jpg"
             alt=""
             className="hero-second-photo-img"
+            fill
+            sizes="(max-width: 480px) 100vw, 480px"
+            style={{ objectFit: 'cover' }}
           />
           <div className="hero-second-photo-dim" />
         </div>
