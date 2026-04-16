@@ -54,7 +54,14 @@ export default function MapLinks() {
       </div>
       <div className="traffic-info">
         <div className="traffic-card">
-          <div className="traffic-icon">S</div>
+          <div className="traffic-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <rect x="4" y="5" width="16" height="11" rx="2" fill="none" />
+              <path d="M4 10h16" fill="none" />
+              <circle cx="8" cy="18" r="2" fill="none" />
+              <circle cx="16" cy="18" r="2" fill="none" />
+            </svg>
+          </div>
           <div className="traffic-body">
             <p className="traffic-title">셔틀버스</p>
             <p className="traffic-row">청계산입구역 2번 출구 (제이니힐 배너 앞)</p>
@@ -62,7 +69,14 @@ export default function MapLinks() {
           </div>
         </div>
         <div className="traffic-card">
-          <div className="traffic-icon">P</div>
+          <div className="traffic-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <path d="M3 13l2-4a3 3 0 0 1 3-2h8a3 3 0 0 1 3 2l2 4" fill="none" />
+              <path d="M5 13h14" fill="none" />
+              <circle cx="7" cy="17" r="2" fill="none" />
+              <circle cx="17" cy="17" r="2" fill="none" />
+            </svg>
+          </div>
           <div className="traffic-body">
             <p className="traffic-title">자가용</p>
             <p className="traffic-row">제이니힐 입구까지 오시면 발렛요원이 대신 주차해 드립니다.</p>
