@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { weddingData } from '@/data/wedding';
 
 declare global {
@@ -15,47 +15,46 @@ declare global {
   }
 }
 
+const KAKAO_KEY = '7b40232aa8c437b0405a6ba1469c5ba4';
+
 export default function KakaoShare() {
   const { kakaoShare } = weddingData;
-  const kakaoLoaded = useRef(false);
-
-  const initKakao = () => {
-    const key = process.env.NEXT_PUBLIC_KAKAO_JS_KEY || '7b40232aa8c437b0405a6ba1469c5ba4';
-    if (window.Kakao && key && !window.Kakao.isInitialized()) {
-      window.Kakao.init(key);
-    }
-  };
+  const scriptRef = useRef(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (kakaoLoaded.current) return;
-    kakaoLoaded.current = true;
+    if (scriptRef.current) return;
+    scriptRef.current = true;
 
-    // 이미 로드된 경우 초기화만
+    const init = () => {
+      try {
+        if (!window.Kakao.isInitialized()) {
+          window.Kakao.init(KAKAO_KEY);
+        }
+        setReady(window.Kakao.isInitialized());
+      } catch {
+        setReady(false);
+      }
+    };
+
     if (window.Kakao) {
-      initKakao();
+      init();
       return;
     }
 
     const script = document.createElement('script');
     script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js';
+    script.integrity = 'sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka';
+    script.crossOrigin = 'anonymous';
     script.async = true;
-    script.onload = initKakao;
+    script.onload = init;
+    script.onerror = () => setReady(false);
     document.head.appendChild(script);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleShare = () => {
-    if (!window.Kakao) {
-      alert('카카오 SDK가 아직 로딩 중입니다. 잠시 후 다시 시도해주세요.');
-      return;
-    }
-
-    if (!window.Kakao.isInitialized()) {
-      initKakao();
-    }
-
-    if (!window.Kakao.isInitialized()) {
-      alert('카카오 초기화에 실패했습니다. 앱 키와 도메인 설정을 확인해주세요.');
+    if (!ready || !window.Kakao?.isInitialized()) {
+      alert('카카오 SDK가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.');
       return;
     }
 
