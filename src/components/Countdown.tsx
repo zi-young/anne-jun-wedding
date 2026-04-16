@@ -61,8 +61,6 @@ export default function Countdown() {
           src="/images/IMG_2159.JPG"
           alt=""
           className="countdown-bg-img"
-          draggable={false}
-          onContextMenu={(e) => e.preventDefault()}
         />
         <div className="countdown-overlay">
           <div className="countdown-numbers">
