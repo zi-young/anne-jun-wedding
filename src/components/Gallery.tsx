@@ -126,7 +126,7 @@ export default function Gallery() {
             className="gallery-more-btn"
             onClick={() => setShowAll((v) => !v)}
           >
-            {showAll ? '닫기 ↑' : `더보기 (${GALLERY_IMAGES.length - INITIAL_COUNT}장 더) ↓`}
+            {showAll ? '닫기 ↑' : '더보기 ↓'}
           </button>
         )}
       </section>

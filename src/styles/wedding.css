@@ -258,6 +258,7 @@ button {
 .hero-text-content {
   position: relative;
   z-index: 1;
+  margin-bottom: 10px;
 }
 
 /* ========================
