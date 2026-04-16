@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { weddingData } from '@/data/wedding';
 
 declare global {
@@ -17,29 +17,54 @@ declare global {
 
 export default function KakaoShare() {
   const { kakaoShare } = weddingData;
+  const kakaoLoaded = useRef(false);
+
+  const initKakao = () => {
+    const key = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+    if (window.Kakao && key && !window.Kakao.isInitialized()) {
+      window.Kakao.init(key);
+    }
+  };
 
   useEffect(() => {
+    if (kakaoLoaded.current) return;
+    kakaoLoaded.current = true;
+
+    // 이미 로드된 경우 초기화만
+    if (window.Kakao) {
+      initKakao();
+      return;
+    }
+
     const script = document.createElement('script');
     script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js';
     script.async = true;
-    script.onload = () => {
-      if (window.Kakao && !window.Kakao.isInitialized()) {
-        const key = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
-        if (key) window.Kakao.init(key);
-      }
-    };
+    script.onload = initKakao;
     document.head.appendChild(script);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleShare = () => {
-    if (!window.Kakao) return;
+    if (!window.Kakao) {
+      alert('카카오 SDK가 아직 로딩 중입니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
+    if (!window.Kakao.isInitialized()) {
+      initKakao();
+    }
+
+    if (!window.Kakao.isInitialized()) {
+      alert('카카오 초기화에 실패했습니다. 앱 키와 도메인 설정을 확인해주세요.');
+      return;
+    }
 
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
         title: kakaoShare.title,
         description: kakaoShare.description,
-        imageUrl: kakaoShare.imageUrl || 'https://via.placeholder.com/600x400',
+        imageUrl: kakaoShare.imageUrl,
         link: {
           mobileWebUrl: kakaoShare.webUrl,
           webUrl: kakaoShare.webUrl,

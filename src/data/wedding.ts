@@ -42,7 +42,7 @@ export const weddingData = {
   kakaoShare: {
     title: '예인 & 준희의 결혼식에 초대합니다.',
     description: '2026년 5월 9일 토요일 낮 12시 제이니힐',
-    imageUrl: '', // TODO: 이미지 URL 추가
+    imageUrl: 'https://anne-jun-wedding.netlify.app/images/%EB%A9%94%EC%9D%B8%EC%82%AC%EC%A7%84/KakaoTalk_20260415_075850582_02.jpg',
     webUrl: 'https://anne-jun-wedding.netlify.app',
   },
 };
