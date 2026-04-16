@@ -15,26 +15,31 @@ export default function HeroSection() {
             src="/images/메인사진/KakaoTalk_20260415_075850582_02.jpg"
             alt="Anne & Jun"
             className="hero-photo-img"
+            fetchPriority="high"
           />
         </div>
       </div>
 
-      {/* 이름 & 날짜 + 두 번째 사진 */}
+      {/* 이름 & 날짜 — 두 번째 사진이 배경 */}
       <div className="hero-info">
-        <div className="hero-en-names">
-          {bride.enName.toUpperCase()} &amp; {groom.enName.toUpperCase()}
-        </div>
-        <div className="hero-date-text">
-          {date.day} {['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][date.month]} {date.year}
-        </div>
-        {/* 두 번째 사진 — ANNE & JUN 박스 안에 */}
+        {/* 배경 사진 */}
         <div className="hero-second-photo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/메인사진/KakaoTalk_20260415_075850582_07.jpg"
-            alt="Anne & Jun"
+            alt=""
             className="hero-second-photo-img"
           />
+          <div className="hero-second-photo-dim" />
+        </div>
+        {/* 텍스트 — 사진 위에 올라옴 */}
+        <div className="hero-text-content">
+          <div className="hero-en-names">
+            {bride.enName.toUpperCase()} &amp; {groom.enName.toUpperCase()}
+          </div>
+          <div className="hero-date-text">
+            {date.day} {['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][date.month]} {date.year}
+          </div>
         </div>
       </div>
     </section>

@@ -116,6 +116,7 @@ export default function Gallery() {
                 src={src}
                 alt={`갤러리 ${idx + 1}`}
                 className="gallery-img"
+                loading="lazy"
               />
             </div>
           ))}
