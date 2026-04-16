@@ -56,6 +56,7 @@ export default function MapLinks() {
         <p className="shuttle-title">셔틀버스 운행</p>
         <p className="shuttle-row">청계산입구역 2번 출구 (제이니힐 배너 앞)</p>
         <p className="shuttle-row">10:30부터 10&ndash;15분 간격 운행</p>
+        <p className="shuttle-row">자가용으로 오시는 경우 제이니힐 입구까지 오시면 발렛요원이 대신 주차해 드립니다.</p>
       </div>
     </section>
   );
